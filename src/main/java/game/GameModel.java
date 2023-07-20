@@ -1,9 +1,10 @@
 package game;
 
 public class GameModel {
-    String word = "Yura"; //TODO
+    public static final GameModel INSTANCE = new GameModel();
+    public String word = "Yura";
 
-    public GameModel() {
+    private GameModel() {
 
     }
 }

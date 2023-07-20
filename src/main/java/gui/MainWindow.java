@@ -1,5 +1,7 @@
 package gui;
 
+import game.GameModel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,8 +12,10 @@ public class MainWindow extends JFrame{
         setTitle("Any contact");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        GameModel gameModel = GameModel.INSTANCE;
+
         getContentPane().add(BorderLayout.NORTH, createWord(
-                "w...", 450, 250, "Verdana", 50
+                gameModel.word, 450, 250, "Verdana", 50
         ));
         getContentPane().add(BorderLayout.SOUTH, createButtonsPanel());
     }
