@@ -4,30 +4,27 @@ import game.GameModel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class MainWindow extends JFrame{
     private JLabel timerLabel;
     private Timer timer;
-    private int secondsRemaining;
+    private final GameModel gameModel = GameModel.INSTANCE;
+    private int secondsRemaining = 5;
     public MainWindow() {
         setTitle("Any contact");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        GameModel gameModel = GameModel.INSTANCE;
-
-        secondsRemaining = 0;
-        timerLabel = createTimerLabel(450, 250, "Verdana", 25);
         getContentPane().add(BorderLayout.NORTH, createWord(gameModel.word, 450, 250, "Verdana", 25));
-        getContentPane().add(BorderLayout.CENTER, timerLabel);
+        getContentPane().add(BorderLayout.CENTER, createTimerLabel(450, 250, "Verdana", 25));
         getContentPane().add(BorderLayout.SOUTH, createButtonsPanel());
     }
 
     private JLabel createTimerLabel(
             int width, int height, String font, int fontSize
     ) {
-        JLabel timerLabel = new JLabel("", SwingConstants.CENTER);
+        timerLabel = new JLabel(
+                "Осталось времени: " + secondsRemaining + " сек", SwingConstants.CENTER
+        );
         timerLabel.setPreferredSize(new Dimension(width, height));
         timerLabel.setFont(new Font(font, Font.PLAIN, fontSize));
         return timerLabel;
@@ -48,13 +45,14 @@ public class MainWindow extends JFrame{
 
         buttonsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 65));
 
-        buttonsPanel.add(generateButton(
-                "You guess the letter!", 450, 250, "Verdana", 25)
-        );
         JButton anyContactButton = generateButton(
-                "Any Contact?!", 450, 250, "Verdana", 25
+                "Any contact!", 400, 200, "Verdana", 35
         );
         addAnyContactListener(anyContactButton);
+
+        buttonsPanel.add(generateButton(
+                "You guess the letter!", 400, 200, "Verdana", 35
+        ));
         buttonsPanel.add(anyContactButton);
 
         return buttonsPanel;
@@ -80,6 +78,7 @@ public class MainWindow extends JFrame{
             timer.start();
         });
     }
+
     private JLabel createWord(
             String text, int width, int height, String font, int fontSize
     ) {
