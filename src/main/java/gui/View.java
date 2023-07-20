@@ -8,7 +8,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class View extends JFrame implements PropertyChangeListener {
-    private int secondsRemaining = 5;
+    private final int secondsRemaining = 1;
     private final String font = "Verdana";
     private final Model model = Model.INSTANCE;
     private JButton guessButton = generateGuessButton();
@@ -31,6 +31,10 @@ public class View extends JFrame implements PropertyChangeListener {
         timerLabel = new JLabel(secondsRemaining + " sec", SwingConstants.CENTER);
         timerLabel.setPreferredSize(new Dimension(width, height));
         timerLabel.setFont(new Font(font, Font.PLAIN, fontSize));
+
+        timerLabel.setBackground(Color.WHITE);
+        timerLabel.setForeground(Color.BLACK);
+        timerLabel.setOpaque(true);
 
         return timerLabel;
     }
@@ -100,15 +104,28 @@ public class View extends JFrame implements PropertyChangeListener {
         wordLabel.setPreferredSize(new Dimension(width, height));
         wordLabel.setFont(new Font(font, Font.BOLD, fontSize));
 
-        wordLabel.setBackground(Color.WHITE);
-        wordLabel.setForeground(Color.DARK_GRAY);
-        wordLabel.setOpaque(true);
-
         return wordLabel;
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        setEnabled(false);
+        int confirmed = JOptionPane.showOptionDialog(
+                null,
+                "Game over",
+                "Game over",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                new String[]{"Restart", "Exit"},
+                null
+        );
+
+        if (confirmed == JOptionPane.NO_OPTION) {
+            dispose();
+            System.exit(0);
+        } else {
+            dispose();
+            System.exit(0);
+        }
     }
 }

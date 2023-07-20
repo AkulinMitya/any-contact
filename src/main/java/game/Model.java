@@ -6,7 +6,7 @@ import java.beans.PropertyChangeSupport;
 public class Model {
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
     public static final Model INSTANCE = new Model();
-    private final String word = "Yura";
+    private final String word = "Tarzan";
     private int countOfChars = 1;
 
     private Model() {}
