@@ -1,5 +1,7 @@
 package gui;
 
+import game.GameModel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,14 +12,14 @@ public class MainWindow extends JFrame{
     private Timer timer;
     private int secondsRemaining;
     public MainWindow() {
-        super("Any contact");
+        setTitle("Any contact");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(300,300);
-        setVisible(true);
+
+        GameModel gameModel = GameModel.INSTANCE;
 
         secondsRemaining = 0;
         timerLabel = createTimerLabel(450, 250, "Verdana", 25);
-        getContentPane().add(BorderLayout.NORTH, createWord("Yura", 450, 250, "Verdana", 25));
+        getContentPane().add(BorderLayout.NORTH, createWord(gameModel.word, 450, 250, "Verdana", 25));
         getContentPane().add(BorderLayout.CENTER, timerLabel);
         getContentPane().add(BorderLayout.SOUTH, createButtonsPanel());
     }
@@ -43,6 +45,9 @@ public class MainWindow extends JFrame{
 
     private JPanel createButtonsPanel() {
         JPanel buttonsPanel = new JPanel();
+
+        buttonsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 65));
+
         buttonsPanel.add(generateButton(
                 "You guess the letter!", 450, 250, "Verdana", 25)
         );
@@ -79,8 +84,13 @@ public class MainWindow extends JFrame{
             String text, int width, int height, String font, int fontSize
     ) {
         JLabel word = new JLabel(text, SwingConstants.CENTER);
+
         word.setPreferredSize(new Dimension(width, height));
-        word.setFont(new Font(font, Font.PLAIN, fontSize));
+        word.setFont(new Font(font, Font.BOLD, fontSize));
+
+        word.setBackground(Color.WHITE);
+        word.setForeground(Color.DARK_GRAY);
+        word.setOpaque(true);
 
         return word;
     }
