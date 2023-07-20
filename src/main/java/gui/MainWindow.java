@@ -2,16 +2,16 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MainWindow extends JFrame{
     public MainWindow() {
-        super("Any contact");
+        setTitle("Any contact");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(300,300);
-        setVisible(true);
 
         getContentPane().add(BorderLayout.NORTH, createWord(
-                "Yura", 450, 250, "Verdana", 25
+                "w...", 450, 250, "Verdana", 50
         ));
         getContentPane().add(BorderLayout.SOUTH, createButtonsPanel());
     }
@@ -28,11 +28,14 @@ public class MainWindow extends JFrame{
 
     private JPanel createButtonsPanel() {
         JPanel buttonsPanel = new JPanel();
+
+        buttonsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 65));
+
         buttonsPanel.add(generateButton(
-                "You guess the letter!", 450, 250, "Verdana", 25)
+                "any contact", 400, 200, "Verdana", 35)
         );
         buttonsPanel.add(generateButton(
-                "Any Contact?!", 450, 250, "Verdana", 25)
+                "letter guessed", 400, 200, "Verdana", 35)
         );
 
         return buttonsPanel;
@@ -42,8 +45,13 @@ public class MainWindow extends JFrame{
             String text, int width, int height, String font, int fontSize
     ) {
         JLabel word = new JLabel(text, SwingConstants.CENTER);
+
         word.setPreferredSize(new Dimension(width, height));
-        word.setFont(new Font(font, Font.PLAIN, fontSize));
+        word.setFont(new Font(font, Font.BOLD, fontSize));
+
+        word.setBackground(Color.WHITE);
+        word.setForeground(Color.DARK_GRAY);
+        word.setOpaque(true);
 
         return word;
     }
