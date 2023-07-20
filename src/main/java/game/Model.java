@@ -11,20 +11,23 @@ public class Model {
 
     private Model() {}
 
-    public static void clear() {
-        word = "";
-        countOfChars = 1;
-    }
-
     public static void addListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }
 
+    private static void clear() {
+        countOfChars = 1;
+        for (PropertyChangeListener listener : support.getPropertyChangeListeners()) {
+            support.removePropertyChangeListener(listener);
+        }
+    }
+
     public static String wordCondition() {
         if (countOfChars == word.length() || word.length() <= 1) {
-            SwingUtilities.invokeLater(() -> {
-                support.firePropertyChange("end", false, true);
-            });
+            clear();
+            SwingUtilities.invokeLater(
+                    () -> support.firePropertyChange("end", false, true)
+            );
             return word;
         }
 

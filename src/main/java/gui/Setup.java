@@ -8,7 +8,7 @@ import java.awt.*;
 public class Setup {
     public void start() {
         String word = JOptionPane.showInputDialog(null, "Enter word");
-        while (word.length() <= 1) {
+        while (word.length() <= 1 || !word.matches("[a-zA-Z]+")) {
             word = JOptionPane.showInputDialog(null, "Enter word");
         }
         Model.word = word;
