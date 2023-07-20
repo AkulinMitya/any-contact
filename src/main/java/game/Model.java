@@ -15,19 +15,12 @@ public class Model {
         support.addPropertyChangeListener(listener);
     }
 
-    private static void clear() {
-        countOfChars = 1;
-        for (PropertyChangeListener listener : support.getPropertyChangeListeners()) {
-            support.removePropertyChangeListener(listener);
-        }
-    }
-
     public static String wordCondition() {
         if (countOfChars == word.length() || word.length() <= 1) {
-            clear();
             SwingUtilities.invokeLater(
                     () -> support.firePropertyChange("end", false, true)
             );
+            countOfChars = 1;
             return word;
         }
 

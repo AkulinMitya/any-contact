@@ -8,9 +8,9 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class View extends JFrame implements PropertyChangeListener {
-    private final int secondsRemaining = 1;
+    private final int secondsRemaining = 2;
     private final String font = "Verdana";
-    private JButton guessButton = generateGuessButton();
+    private JButton guessButton = generateGuessButton(400, 200, 35);
     private JLabel timerLabel = createTimerLabel(450, 250, 35);
     private JLabel wordLabel = createWord(Model.wordCondition(), 450, 250, 65);
     private Timer timer;
@@ -24,9 +24,7 @@ public class View extends JFrame implements PropertyChangeListener {
         getContentPane().add(BorderLayout.SOUTH, createButtonsPanel());
     }
 
-    private JLabel createTimerLabel(
-            int width, int height, int fontSize
-    ) {
+    private JLabel createTimerLabel(int width, int height, int fontSize) {
         timerLabel = new JLabel(secondsRemaining + " sec", SwingConstants.CENTER);
         timerLabel.setPreferredSize(new Dimension(width, height));
         timerLabel.setFont(new Font(font, Font.PLAIN, fontSize));
@@ -38,21 +36,21 @@ public class View extends JFrame implements PropertyChangeListener {
         return timerLabel;
     }
 
-    private JButton generateGuessButton() {
+    private JButton generateGuessButton(int width, int height, int fontSize) {
         guessButton = new JButton("letter guessed");
 
-        guessButton.setPreferredSize(new Dimension(400, 200));
-        guessButton.setFont(new Font(font, Font.PLAIN, 35));
+        guessButton.setPreferredSize(new Dimension(width, height));
+        guessButton.setFont(new Font(font, Font.PLAIN, fontSize));
         guessButton.setEnabled(false);
         guessButton.addActionListener(e -> wordUpdate());
 
         return guessButton;
     }
 
-    private JButton generateContactButton() {
+    private JButton generateContactButton(int width, int height, int fontSize) {
         JButton button = new JButton("any contact");
-        button.setPreferredSize(new Dimension(400, 200));
-        button.setFont(new Font(font, Font.PLAIN, 35));
+        button.setPreferredSize(new Dimension(width, height));
+        button.setFont(new Font(font, Font.PLAIN, fontSize));
         button.addActionListener(
                 e1 -> {
                     final Integer[] tempSecondsRemaining = {secondsRemaining};
@@ -85,8 +83,8 @@ public class View extends JFrame implements PropertyChangeListener {
 
         buttonsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 65));
 
-        buttonsPanel.add(generateGuessButton());
-        buttonsPanel.add(generateContactButton());
+        buttonsPanel.add(guessButton);
+        buttonsPanel.add(generateContactButton(400, 200, 35));
 
         return buttonsPanel;
     }
