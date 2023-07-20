@@ -52,16 +52,17 @@ public class View extends JFrame implements PropertyChangeListener {
         button.setFont(new Font(font, Font.PLAIN, 35));
         button.addActionListener(
                 e1 -> {
-                    secondsRemaining = 5;
+                    final Integer[] tempSecondsRemaining = {secondsRemaining};
                     if (timer != null) {
                         timer.stop();
                     }
                     guessButton.setEnabled(false);
+                    timerLabel.setText(tempSecondsRemaining[0]-- + " sec");
 
                     timer = new Timer(1000, e2 -> {
-                        if (secondsRemaining > 0) {
-                            timerLabel.setText(secondsRemaining + " sec");
-                            secondsRemaining--;
+                        if (tempSecondsRemaining[0] > 0) {
+                            timerLabel.setText(tempSecondsRemaining[0] + " sec");
+                            tempSecondsRemaining[0]--;
                         } else {
                             timerLabel.setText("Time out!");
                             timer.stop();
