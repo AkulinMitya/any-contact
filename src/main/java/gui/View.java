@@ -40,7 +40,7 @@ public class View extends JFrame implements PropertyChangeListener {
     }
 
     private JButton generateGuessButton() {
-        guessButton = new JButton("You guess the letter!");
+        guessButton = new JButton("letter guessed");
 
         guessButton.setPreferredSize(new Dimension(400, 200));
         guessButton.setFont(new Font(font, Font.PLAIN, 35));
@@ -51,7 +51,7 @@ public class View extends JFrame implements PropertyChangeListener {
     }
 
     private JButton generateContactButton() {
-        JButton button = new JButton("Any contact!");
+        JButton button = new JButton("any contact");
         button.setPreferredSize(new Dimension(400, 200));
         button.setFont(new Font(font, Font.PLAIN, 35));
         button.addActionListener(
@@ -125,7 +125,7 @@ public class View extends JFrame implements PropertyChangeListener {
             System.exit(0);
         } else {
             dispose();
-            System.exit(0);
+            new Setup().start();
         }
     }
 }
