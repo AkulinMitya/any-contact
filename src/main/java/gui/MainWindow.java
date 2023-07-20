@@ -9,7 +9,7 @@ import java.beans.PropertyChangeListener;
 
 public class MainWindow extends JFrame {
 //    private PropertyChangeListener
-    private int secondsRemaining = 5;
+    private final int secondsRemaining = 5;
     private final String font = "Verdana";
     private final GameModel gameModel = GameModel.INSTANCE;
     private JButton guessButton = generateGuessButton();
@@ -53,16 +53,17 @@ public class MainWindow extends JFrame {
         button.setFont(new Font(font, Font.PLAIN, 35));
         button.addActionListener(
                 e1 -> {
-                    secondsRemaining = 5;
+                    final Integer[] tempSecondsRemaining = {secondsRemaining};
                     if (timer != null) {
                         timer.stop();
                     }
                     guessButton.setEnabled(false);
+                    timerLabel.setText(tempSecondsRemaining[0]-- + " sec");
 
                     timer = new Timer(1000, e2 -> {
-                        if (secondsRemaining > 0) {
-                            timerLabel.setText(secondsRemaining + " sec");
-                            secondsRemaining--;
+                        if (tempSecondsRemaining[0] > 0) {
+                            timerLabel.setText(tempSecondsRemaining[0] + " sec");
+                            tempSecondsRemaining[0]--;
                         } else {
                             timerLabel.setText("Time out!");
                             timer.stop();
