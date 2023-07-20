@@ -9,7 +9,11 @@ public class Setup {
     public void start() {
         Model model = Model.INSTANCE;
 
-        model.setWord(JOptionPane.showInputDialog(null, "Enter word"));
+        String word = JOptionPane.showInputDialog(null, "Enter word");
+        while (word.length() <= 1) {
+            word = JOptionPane.showInputDialog(null, "Enter word");
+        }
+        model.setWord(word);
 
         SwingUtilities.invokeLater(() -> {
             View view = new View();

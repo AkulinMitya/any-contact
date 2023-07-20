@@ -125,6 +125,7 @@ public class View extends JFrame implements PropertyChangeListener {
             System.exit(0);
         } else {
             dispose();
+            model.clear();
             new Setup().start();
         }
     }

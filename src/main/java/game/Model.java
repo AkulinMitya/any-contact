@@ -15,12 +15,16 @@ public class Model {
 
     private Model() {}
 
+    public void clear() {
+        INSTANCE = new Model();
+    }
+
     public void addListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }
 
     public String wordCondition() {
-        if (countOfChars == word.length()) {
+        if (countOfChars == word.length() || word.length() <= 1) {
             support.firePropertyChange("end", false, true);
             return "word: \"" + word + "\"";
         }
