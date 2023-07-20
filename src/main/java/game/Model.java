@@ -1,32 +1,31 @@
 package game;
 
+import javax.swing.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class Model {
-    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
-    public static Model INSTANCE = new Model();
-    private String word = "";
-    private int countOfChars = 1;
-
-    public void setWord(String word) {
-        this.word = word;
-    }
+    private static final PropertyChangeSupport support = new PropertyChangeSupport(Model.class);
+    public static String word = "";
+    private static int countOfChars = 1;
 
     private Model() {}
 
-    public void clear() {
-        INSTANCE = new Model();
+    public static void clear() {
+        word = "";
+        countOfChars = 1;
     }
 
-    public void addListener(PropertyChangeListener listener) {
+    public static void addListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }
 
-    public String wordCondition() {
+    public static String wordCondition() {
         if (countOfChars == word.length() || word.length() <= 1) {
-            support.firePropertyChange("end", false, true);
-            return "word: \"" + word + "\"";
+            SwingUtilities.invokeLater(() -> {
+                support.firePropertyChange("end", false, true);
+            });
+            return word;
         }
 
         return word.substring(0, countOfChars++);

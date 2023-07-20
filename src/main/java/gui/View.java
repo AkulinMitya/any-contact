@@ -10,10 +10,9 @@ import java.beans.PropertyChangeListener;
 public class View extends JFrame implements PropertyChangeListener {
     private final int secondsRemaining = 1;
     private final String font = "Verdana";
-    private final Model model = Model.INSTANCE;
     private JButton guessButton = generateGuessButton();
     private JLabel timerLabel = createTimerLabel(450, 250, 35);
-    private JLabel wordLabel = createWord(model.wordCondition(), 450, 250, 65);
+    private JLabel wordLabel = createWord(Model.wordCondition(), 450, 250, 65);
     private Timer timer;
 
     public View() {
@@ -93,7 +92,7 @@ public class View extends JFrame implements PropertyChangeListener {
     }
 
     private void wordUpdate() {
-        wordLabel.setText(model.wordCondition());
+        wordLabel.setText(Model.wordCondition());
         wordLabel.repaint();
         guessButton.setEnabled(false);
     }
@@ -111,7 +110,7 @@ public class View extends JFrame implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         int confirmed = JOptionPane.showOptionDialog(
                 null,
-                "Game over",
+                "word: \"" + Model.word + "\"",
                 "Game over",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.INFORMATION_MESSAGE,
@@ -125,7 +124,7 @@ public class View extends JFrame implements PropertyChangeListener {
             System.exit(0);
         } else {
             dispose();
-            model.clear();
+            Model.clear();
             new Setup().start();
         }
     }
