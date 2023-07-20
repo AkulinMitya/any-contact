@@ -1,23 +1,22 @@
 package gui;
 
-import game.GameModel;
+import game.Model;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class MainWindow extends JFrame {
-//    private PropertyChangeListener
+public class View extends JFrame implements PropertyChangeListener {
     private int secondsRemaining = 5;
     private final String font = "Verdana";
-    private final GameModel gameModel = GameModel.INSTANCE;
+    private final Model model = Model.INSTANCE;
     private JButton guessButton = generateGuessButton();
     private JLabel timerLabel = createTimerLabel(450, 250, 35);
-    private JLabel wordLabel = createWord(gameModel.wordCondition(), 450, 250, 65);
+    private JLabel wordLabel = createWord(model.wordCondition(), 450, 250, 65);
     private Timer timer;
 
-    public MainWindow() {
+    public View() {
         setTitle("Any contact");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -89,7 +88,7 @@ public class MainWindow extends JFrame {
     }
 
     private void wordUpdate() {
-        wordLabel.setText(gameModel.wordCondition());
+        wordLabel.setText(model.wordCondition());
         wordLabel.repaint();
         guessButton.setEnabled(false);
     }
@@ -105,5 +104,10 @@ public class MainWindow extends JFrame {
         wordLabel.setOpaque(true);
 
         return wordLabel;
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        setEnabled(false);
     }
 }

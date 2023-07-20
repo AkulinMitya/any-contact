@@ -1,4 +1,5 @@
-import gui.MainWindow;
+import game.Model;
+import gui.View;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,10 +12,13 @@ public class Main {
             e.printStackTrace();
         }
         SwingUtilities.invokeLater(() -> {
-            MainWindow frame = new MainWindow();
-            frame.pack();
-            frame.setVisible(true);
-            frame.setExtendedState(Frame.MAXIMIZED_BOTH);
+
+            View view = new View();
+            Model model = Model.INSTANCE;
+            model.addListener(view);
+            view.pack();
+            view.setVisible(true);
+            view.setExtendedState(Frame.MAXIMIZED_BOTH);
         });
     }
 }
