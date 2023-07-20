@@ -10,8 +10,8 @@ public class GameModel {
     }
 
     public String wordCondition() {
-        if (countOfChars == word.length() + 1) {
-            return "Game over!";
+        if (countOfChars == word.length()) {
+            return "word: \"" + word + "\"";
         }
 
         return word.substring(0, countOfChars++);
