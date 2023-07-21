@@ -9,7 +9,7 @@ public class Setup {
     public void start() {
         // Меню написания слова
         String word = "";
-        while (word.length() <= 1 || !word.matches("[a-zA-Z]+")) {
+        while (word.length() <= 1 || !word.matches("[a-zA-Zа-яА-Я]+")) {
             word = JOptionPane.showInputDialog(null, "Enter word");
         }
         Model.word = word;
